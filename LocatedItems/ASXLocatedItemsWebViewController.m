@@ -29,6 +29,12 @@
 	// Do any additional setup after loading the view.
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    NSString *urlString = [NSString stringWithFormat:@"http://newtonworks.sakura.ne.jp/wp/LocatedItems/%02d-%02d",_majorNumber.intValue,_minorNumber.intValue];
+    [_webView loadRequest:[NSURL URLWithString:urlString]];
+    
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

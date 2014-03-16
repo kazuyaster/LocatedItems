@@ -39,6 +39,26 @@ NSString *const kIdentifier = @"identifer";
 
 #pragma mark - Beacon job
 - (void)beaconing:(BOOL)flag{
+//    NSUUID *uuid = [[NSUUID alloc]initWithUUIDString:@"580730F6-ECB0-4E94-B7A2-29D434C7ACF6"];
+//    
+//    CLBeaconRegion *region = [[CLBeaconRegion alloc]initWithProximityUUID:uuid
+//                                                                    major:_majourNumber.text.intValue
+//                                                                    minor:_minorNumber.text.intValue
+//                                                               identifier:kIdentifier];
+//    
+//    NSDictionary *peripheralData = [region peripheralDataWithMeasuredPower:nil];
+//    
+//    if(flag){
+//        [_peripheralManager startAdvertising:peripheralData];
+//        [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+//    }else{
+//        [_peripheralManager stopAdvertising];
+//        [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+//    }
+}
+
+- (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral{
+    
     NSUUID *uuid = [[NSUUID alloc]initWithUUIDString:@"580730F6-ECB0-4E94-B7A2-29D434C7ACF6"];
     
     CLBeaconRegion *region = [[CLBeaconRegion alloc]initWithProximityUUID:uuid
@@ -48,17 +68,13 @@ NSString *const kIdentifier = @"identifer";
     
     NSDictionary *peripheralData = [region peripheralDataWithMeasuredPower:nil];
     
-    if(flag){
+    if (peripheral.state == CBPeripheralManagerStatePoweredOn) {
+        NSLog(@"Powered On");
         [_peripheralManager startAdvertising:peripheralData];
-        [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
-    }else{
+    } else if (peripheral.state == CBPeripheralManagerStatePoweredOff) {
+        NSLog(@"Powered Off");
         [_peripheralManager stopAdvertising];
-        [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
     }
-}
-
-- (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral{
-    
 }
 
 #pragma mark - Flipside View

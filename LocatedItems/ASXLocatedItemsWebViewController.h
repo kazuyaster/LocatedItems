@@ -11,4 +11,6 @@
 @interface ASXLocatedItemsWebViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (nonatomic,strong) NSNumber *majorNumber;
+@property (nonatomic,strong) NSNumber *minorNumber;
 @end
